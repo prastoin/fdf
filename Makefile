@@ -6,13 +6,13 @@
 #    By: amerrouc <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/21 16:50:34 by amerrouc          #+#    #+#              #
-#    Updated: 2019/01/06 11:39:20 by prastoin         ###   ########.fr        #
+#    Updated: 2019/01/06 14:01:05 by prastoin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fdf
 
-SRC = main.c parser.c
+SRC = main.c parser.c data.c
 
 OBJ = $(SRC:.c=.o)
 
