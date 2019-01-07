@@ -6,7 +6,7 @@
 /*   By: prastoin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/06 10:24:30 by prastoin          #+#    #+#             */
-/*   Updated: 2019/01/06 14:45:32 by prastoin         ###   ########.fr       */
+/*   Updated: 2019/01/07 09:32:35 by prastoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static	int	ft_countdigits(char *str)
 		}
 		i++;
 	}
-	printf("count = %d\n", count);
+//	printf("count = %d\n", count);
 	return (count);
 }
 

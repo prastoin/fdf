@@ -6,7 +6,7 @@
 /*   By: prastoin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/06 10:19:44 by prastoin          #+#    #+#             */
-/*   Updated: 2019/01/06 15:20:51 by prastoin         ###   ########.fr       */
+/*   Updated: 2019/01/07 09:35:46 by prastoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@ int main(int argc, char **argv)
 		return (0);
 	}
 		printf("la map est valide\n");
+//	int	k = -1;
+//	while (fdf.tab[++k])
+//		printf("RENDU parser.c \n%s\nRENDU FIN\n", fdf.tab[k]);
 	data(&fdf);
 	printf("les donnees on etaient traitee\n");
 	int		i;
@@ -39,8 +42,10 @@ int main(int argc, char **argv)
 		j = 0;
 		while (j < fdf.ab)
 		{
-			printf("z[%d][%d] = %d\n", i, j, fdf.z[i][j]);
+			printf("%d ", fdf.z[i][j]);
 			j++;
+			if (j == fdf.ab)
+				printf("\n");
 		}
 		i++;
 	}

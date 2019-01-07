@@ -6,7 +6,7 @@
 /*   By: prastoin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/06 13:15:14 by prastoin          #+#    #+#             */
-/*   Updated: 2019/01/06 15:22:05 by prastoin         ###   ########.fr       */
+/*   Updated: 2019/01/07 09:32:24 by prastoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int		ft_numlen(int nb)
 		nb = nb / 10;
 		count++;
 	}
-	printf("longeur num%d\n", count);
+//	printf("longeur num%d\n", count);
 	return (count);
 }
 
@@ -53,6 +53,7 @@ int		get_z(t_data *fdf)
 	{
 //		printf("%s\n", fdf->tab[j]);
 		i = 0;
+		n = 0;
 		while (fdf->tab[j][i])
 		{
 //			printf("I ==%d\n", i);
@@ -60,9 +61,9 @@ int		get_z(t_data *fdf)
 			{
 //				printf(" PLUS I%s\n", fdf->tab[j] + i);
 				tmp = ft_atoi(fdf->tab[j] + i);
-				printf("tmp = %d\n", tmp);
+//				printf("tmp = %d\n", tmp);
 				fdf->z[m][n] = tmp;
-//				printf("z[%d][%d] = %d\n", n, m, fdf->z[n][m]);
+//				printf("z[%d][%d] = %d\n", m, n, fdf->z[m][n]);
 				n++;
 				i += ft_numlen(tmp);
 			}
