@@ -6,7 +6,7 @@
 /*   By: prastoin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/06 10:19:44 by prastoin          #+#    #+#             */
-/*   Updated: 2019/01/07 11:20:50 by prastoin         ###   ########.fr       */
+/*   Updated: 2019/01/07 16:01:35 by prastoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ int main(int argc, char **argv)
 		fdf.fd = open(argv[1], O_RDONLY);
 	else
 		return(0);
+	if (fdf.fd == -1)
+		return (0);
+	printf("la map est valide\n");
 	if (parser(&fdf) == -1)
 	{
 		ft_putstr("la map est invalide\n");

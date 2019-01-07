@@ -6,7 +6,7 @@
 #    By: prastoin <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/07 11:13:09 by prastoin          #+#    #+#              #
-#    Updated: 2019/01/07 11:50:12 by prastoin         ###   ########.fr        #
+#    Updated: 2019/01/07 12:40:13 by prastoin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,15 +20,16 @@ FLAG = -Wall -Wextra -Werror
 
 LIB = libft/libft.a
 
-LIBX = -lmlx -framework OpenGL -framework AppKit
+LIB2 = -L/usr/local/lib
 
+LIBX = -lmlx -framework OpenGL -framework AppKit
 
 INC = -I./libft/ -I/usr/local/include
 
 all: $(NAME)
 
 $(NAME): $(OBJ) $(LIB)
-		gcc $(FLAG) $(LIB) $(INC) $(OBJ) -o $(NAME)
+		gcc $(FLAG) $(LIB) $(LIB2) $(INC) $(OBJ) $(LIBX) -o $(NAME)
 
 $(LIB):
 		make -C libft/ fclean

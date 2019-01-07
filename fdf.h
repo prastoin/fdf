@@ -6,7 +6,7 @@
 /*   By: prastoin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/29 13:58:31 by prastoin          #+#    #+#             */
-/*   Updated: 2019/01/07 11:20:05 by prastoin         ###   ########.fr       */
+/*   Updated: 2019/01/07 15:22:45 by prastoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ typedef struct	s_data
 	void	*ximg;
 	void	*img;
 
-	char	*tab[2647];
+	int		dim;
+	char	*tab[4096];
 	int		fd;
 	int		ord;
 	int		ab;
