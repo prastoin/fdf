@@ -6,7 +6,7 @@
 /*   By: prastoin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/06 10:19:44 by prastoin          #+#    #+#             */
-/*   Updated: 2019/01/07 09:35:46 by prastoin         ###   ########.fr       */
+/*   Updated: 2019/01/07 11:20:50 by prastoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int main(int argc, char **argv)
 //	while (fdf.tab[++k])
 //		printf("RENDU parser.c \n%s\nRENDU FIN\n", fdf.tab[k]);
 	data(&fdf);
+	fdf.mlx = mlx_init();
+	fdf.win = mlx_new_window(fdf.mlx, 1000, 1000, "prastoin's fdf");
 	printf("les donnees on etaient traitee\n");
 	int		i;
 	int		j;
@@ -49,5 +51,7 @@ int main(int argc, char **argv)
 		}
 		i++;
 	}
+	algo(&fdf, fdf.ab, fdf.ord);
+	mlx_loop(fdf.mlx);
 	return(0);
 }

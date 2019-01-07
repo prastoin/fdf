@@ -6,7 +6,7 @@
 /*   By: prastoin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/29 13:58:31 by prastoin          #+#    #+#             */
-/*   Updated: 2019/01/06 14:49:45 by prastoin         ###   ########.fr       */
+/*   Updated: 2019/01/07 11:20:05 by prastoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <stdio.h>
+# include <mlx.h>
 
 typedef struct	s_data
 {
@@ -34,5 +35,6 @@ typedef struct	s_data
 
 int		parser(t_data *fdf);
 int		data(t_data *fdf);
+int		algo(t_data *fdf, int x, int y);
 
 #endif

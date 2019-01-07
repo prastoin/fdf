@@ -6,7 +6,7 @@
 #    By: prastoin <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/07 11:13:09 by prastoin          #+#    #+#              #
-#    Updated: 2019/01/07 11:50:12 by prastoin         ###   ########.fr        #
+#    Updated: 2019/01/07 11:47:08 by prastoin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,32 +18,32 @@ OBJ = $(SRC:.c=.o)
 
 FLAG = -Wall -Wextra -Werror
 
-LIB = libft/libft.a
-
-LIBX = -lmlx -framework OpenGL -framework AppKit
-
+LIB = libft/libft.a -L/usr/local/lib
+LIB2 = -L/usr/local/lib
 
 INC = -I./libft/ -I/usr/local/include
+
+LIBX = -lmlx -framework OpenGL -framework AppKit
 
 all: $(NAME)
 
 $(NAME): $(OBJ) $(LIB)
-		gcc $(FLAG) $(LIB) $(INC) $(OBJ) -o $(NAME)
+	gcc $(FLAG) $(LIB) $(INC) $(LIB2) $(OBJ) $(LIBX) -o $(NAME)
 
 $(LIB):
-		make -C libft/ fclean
-			make -C ./libft/
+	make -C libft/ fclean
+	make -C ./libft/
 
 %.o: %.c
-		gcc $(FLAG) $(INC) -o $@ -c $<
+	gcc $(FLAG) $(INC) -o $@ -c $<
 
 clean:
-		make -C libft/ clean
-			rm -rf $(OBJ)
+	make -C libft/ clean
+	rm -rf $(OBJ)
 
 fclean: clean
-		make -C libft/ fclean
-			rm -rf $(NAME)
+	make -C libft/ fclean
+	rm -rf $(NAME)
 
 re: fclean all
 
