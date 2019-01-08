@@ -6,28 +6,38 @@
 /*   By: prastoin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 10:41:56 by prastoin          #+#    #+#             */
-/*   Updated: 2019/01/08 16:58:48 by prastoin         ###   ########.fr       */
+/*   Updated: 2019/01/08 17:48:48 by prastoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include "libft.h"
 
-int tracertrait(t_data *fdf, int xstart, int ystart, int x, int y)
+int gradient(int a, int b, float percent)
+{
+	return ((int)((a + (b - a)) * percent));
+}
+
+int tracertrait(t_data *fdf, int xstart, int ystart, int x, int y, int zstart, int z)
 {
 	const int	x_inc = xstart < x ? 1 : -1;
 	const int	y_inc = ystart < y ? 1 : -1;
 	const int	dx = x > xstart ? x - xstart: xstart - x;
 	const int	dy = y > ystart ? y - ystart: ystart - y;
 	int			e[2];
-	int color = 0xFFFFFF;
+	int color;
+	int			i;
 
+	color = 0xFFFFFF;
 	e[0] = dx > dy ? dx / 2 : -dy / 2;
 //	printf("OUIOUI\n");
+	(void)zstart;
+	(void)z;
+	i = 0;
 	while (xstart != x || ystart != y)
 	{
 		if (ystart >= 0 && ystart < 1000 && y < 1000 && y >= 0 && xstart >= 0 && xstart < 1000 && x < 1000 && x > 0)
-			fdf->img_ptr[ystart * 1000 + xstart] = color;
+			fdf->img_ptr[ystart * 1000 + xstart] = /*color  - (((zstart + z) * fdf->hauteur) )*/gradient(0xFF0000, 0x00FF00, (dx > dy) ? (x - xstart) * x_inc / (double)dx : (y - ystart) * y_inc / (double)dy);
 		if ((e[1] = e[0]) > -dx)
 		{
 			e[0] -= dy;
@@ -38,6 +48,7 @@ int tracertrait(t_data *fdf, int xstart, int ystart, int x, int y)
 			e[0] += dx;
 			ystart += y_inc;
 		}
+		i++;
 	}
 	return (0);
 }
@@ -62,7 +73,7 @@ static int	ft_pass(t_data *fdf, int xstart, int ystart, int x, int y)
 	xstart = (xstart - ystart) + fdf->position_x;
 	y = ((tmp1 + y) / 2) + fdf->position_y;
 	ystart = ((tmp2 + ystart) / 2) + fdf->position_y;
-	tracertrait(fdf, xstart - (zstart * fdf->hauteur), ystart - (zstart * fdf->hauteur), x - (z * fdf->hauteur), y - (z * fdf->hauteur));
+	tracertrait(fdf, xstart - (zstart * fdf->hauteur), ystart - (zstart * fdf->hauteur), x - (z * fdf->hauteur), y - (z * fdf->hauteur), zstart, z);
 	return (1);
 }
 
