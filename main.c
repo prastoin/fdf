@@ -6,7 +6,7 @@
 /*   By: prastoin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/06 10:19:44 by prastoin          #+#    #+#             */
-/*   Updated: 2019/01/08 16:16:21 by prastoin         ###   ########.fr       */
+/*   Updated: 2019/01/08 17:09:07 by prastoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,19 @@ int		deal_key(int key, t_data *fdf)
 	if (key == KEY_PLUS)
 		fdf->zoom += 5;
 	if (key == KEY_UP)
-		fdf->position_y += 5;
+		fdf->position_y += 15;
 	if (key == KEY_DOWN)
-		fdf->position_y -= 5;
+		fdf->position_y -= 15;
 	if (key == KEY_RIGHT)
-		fdf->position_x += 5;
+		fdf->position_x += 15;
 	if (key == KEY_LEFT)
-		fdf->position_x -= 5;
-	if (key == 256)
+		fdf->position_x -= 15;
+	if (key == KEY_CTRL)
 		exit (0);
+	if (key == KEY_NUM6)
+		fdf->hauteur++;
+	if (key == KEY_NUM3)
+		fdf->hauteur--;
 	mlx_destroy_image(fdf->mlx, fdf->img);
 	fdf->img = mlx_new_image(fdf->mlx, 1000, 1000);
 	fdf->img_ptr = (int *)mlx_get_data_addr(fdf->img, &i, &i, &i);
@@ -44,9 +48,10 @@ int main(int argc, char **argv)
 {
 	t_data	fdf;
 
-	fdf.zoom = 50;
+	fdf.zoom = 53;
 	fdf.position_x = 500;
 	fdf.position_y = 300;
+	fdf.hauteur = 1;
 	if (argc == 2)
 		fdf.fd = open(argv[1], O_RDONLY);
 	else

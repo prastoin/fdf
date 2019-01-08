@@ -6,7 +6,7 @@
 /*   By: prastoin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 10:41:56 by prastoin          #+#    #+#             */
-/*   Updated: 2019/01/08 16:48:40 by prastoin         ###   ########.fr       */
+/*   Updated: 2019/01/08 16:58:48 by prastoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static int	ft_pass(t_data *fdf, int xstart, int ystart, int x, int y)
 	xstart = (xstart - ystart) + fdf->position_x;
 	y = ((tmp1 + y) / 2) + fdf->position_y;
 	ystart = ((tmp2 + ystart) / 2) + fdf->position_y;
-	tracertrait(fdf, xstart - zstart, ystart - zstart, x - z, y - z);
+	tracertrait(fdf, xstart - (zstart * fdf->hauteur), ystart - (zstart * fdf->hauteur), x - (z * fdf->hauteur), y - (z * fdf->hauteur));
 	return (1);
 }
 
