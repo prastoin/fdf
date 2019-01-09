@@ -6,7 +6,7 @@
 /*   By: prastoin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/06 10:19:44 by prastoin          #+#    #+#             */
-/*   Updated: 2019/01/09 11:20:19 by prastoin         ###   ########.fr       */
+/*   Updated: 2019/01/09 12:12:26 by prastoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,7 @@
 
 int		deal_key(int key, t_data *fdf)
 {
-	int	i;
-
-	i = 0;
-	printf("key =%d\n", key);
+	printf("%d\n", key);
 	if (key == KEY_LESS)
 		fdf->zoom -= 5;
 	if (key == KEY_PLUS)
@@ -31,15 +28,15 @@ int		deal_key(int key, t_data *fdf)
 		fdf->position_x += 15;
 	if (key == KEY_LEFT)
 		fdf->position_x -= 15;
-	if (key == KEY_CTRL)
+	if (key == KEY_SPACE)
 		exit (0);
 	if (key == KEY_NUM6)
 		fdf->hauteur++;
 	if (key == KEY_NUM3)
 		fdf->hauteur--;
 	mlx_destroy_image(fdf->mlx, fdf->img);
-	fdf->img = mlx_new_image(fdf->mlx, 1000, 1000);
-	fdf->img_ptr = (int *)mlx_get_data_addr(fdf->img, &i, &i, &i);
+	fdf->img = mlx_new_image(fdf->mlx, SCREEN_X, SCREEN_Y);
+	fdf->img_ptr = (int *)mlx_get_data_addr(fdf->img, &key, &key, &key);
 	algo(fdf, fdf->ab, fdf->ord);
 	return (0);
 }
@@ -53,7 +50,7 @@ int		ft_count_line(t_data *fdf)
 	tet = 1;
 	while (tet > 0)
 	{
-		if ((tet = get_next_line(fdf->fd, &line)) == -1)
+		if ((tet = get_next_line(fdf->fd, &line)) < 0)
 			return (-1);
 		fdf->ord++;
 	}
@@ -61,15 +58,40 @@ int		ft_count_line(t_data *fdf)
 	return (0);
 }
 
+void	ft_init(t_data *fdf)
+{
+	fdf->zoom = 53;
+	fdf->position_x = SCREEN_X / 4;
+	fdf->position_y = SCREEN_Y / 4;
+	fdf->hauteur = 1;
+}
+
+int	ft_cut(t_data *fdf, int i)
+{
+	if (parser(fdf) == -1)
+	{
+		ft_putstr("Invalid map\n");
+		return (-1);
+	}
+	close(fdf->fd);
+	data(fdf);
+	fdf->mlx = mlx_init();
+	fdf->win = mlx_new_window(fdf->mlx, SCREEN_X, SCREEN_Y, "prastoin's fdf");
+	fdf->img = mlx_new_image(fdf->mlx, SCREEN_X, SCREEN_Y);
+	fdf->img_ptr = (int *)mlx_get_data_addr(fdf->img, &i, &i, &i);
+	algo(fdf, fdf->ab, fdf->ord);
+	mlx_key_hook(fdf->win, deal_key, fdf);
+	mlx_loop(fdf->mlx);
+	return(0);
+}
+
 int main(int argc, char **argv)
 {
 	t_data	fdf;
 
-	fdf.zoom = 53;
-	fdf.position_x = 500;
-	fdf.position_y = 300;
-	fdf.hauteur = 1;
-	if (argc == 3 && (ft_strcmp(argv[2], "iso") == 0 || ft_strcmp(argv[2], "parr") == 0))
+	ft_init(&fdf);
+	if (argc == 3 && (ft_strcmp(argv[2], "iso") == 0
+				|| ft_strcmp(argv[2], "parr") == 0))
 	{
 		fdf.isoparr = (ft_strcmp(argv[2], "iso") == 0) ? 0 : 1;
 		if ((fdf.fd = open(argv[1], O_RDONLY)) == -1)
@@ -85,43 +107,8 @@ int main(int argc, char **argv)
 		ft_putstr("./fdf [map] [projection] (iso / parr)\n");
 		return(0);
 	}
-	if (parser(&fdf) == -1)
-	{
-		ft_putstr("la map est invalide\n");
-		return (0);
-	}
-	close(fdf.fd);
-	printf("ICI ICI ICI =%d\n", fdf.ord);
-	printf("la map est valide\n");
-	data(&fdf);
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
-	while (i < fdf.ord)
-	{
-		j = 0;
-		while (j < fdf.ab)
-		{
-			printf("%d ", fdf.z[i][j]);
-			j++;
-			if (j == fdf.ab)
-				printf("\n");
-		}
-		i++;
-	}
-	printf("la map est valide\n");
-	fdf.mlx = mlx_init();
-	fdf.win = mlx_new_window(fdf.mlx, 1000, 1000, "prastoin's fdf");
-	fdf.img = mlx_new_image(fdf.mlx, 1000, 1000);
-	fdf.img_ptr = (int *)mlx_get_data_addr(fdf.img, &argc, &argc, &argc);
-	printf("les donnees on etaient traitee\n");
-	algo(&fdf, fdf.ab, fdf.ord);
-	mlx_put_image_to_window(fdf.mlx, fdf.win, fdf.img, 0, 0);
-	mlx_key_hook(fdf.win, deal_key, &fdf);
-	mlx_loop(fdf.mlx);
-	return(0);
+	ft_cut(&fdf, 5);
+	return (0);
 }
 
 //	int	k = -1;

@@ -6,14 +6,14 @@
 /*   By: prastoin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/06 10:24:30 by prastoin          #+#    #+#             */
-/*   Updated: 2019/01/09 10:19:25 by prastoin         ###   ########.fr       */
+/*   Updated: 2019/01/09 12:17:00 by prastoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "fdf.h"
 
-static	int	ft_countdigits(char *str)
+static	int		ft_countdigits(char *str)
 {
 	int	i;
 	int	count;
@@ -32,24 +32,23 @@ static	int	ft_countdigits(char *str)
 		}
 		i++;
 	}
-//	printf("count = %d\n", count);
 	return (count);
 }
 
-static int	fill_tab(char **tab, char *line, int i)
+static int		fill_tab(char **tab, char *line, int i)
 {
 	tab[i] = line;
 	return (1);
 }
 
-static int	ft_fail_reading(char **tab, int i)
+static int		ft_fail_reading(char **tab, int i)
 {
 	tab[i + 1] = NULL;
 //	freedbchar(tab);
 	return (0);
 }
 
-static	int	ft_verif(char *str)
+static int		ft_verif(char *str)
 {
 	int	i;
 
@@ -65,7 +64,8 @@ static	int	ft_verif(char *str)
 			}
 		}
 		if (((str[i] == '-') || (str[i] == '+')) &&
-				((ft_isdigit(str[i + 1]) == 0) || ((str[i - 1] != ' ' && i != 0))))
+				((ft_isdigit(str[i + 1]) == 0)
+				|| ((str[i - 1] != ' ' && i != 0))))
 		{
 			printf("mauvaise succ\n");
 			return (-1);
@@ -75,19 +75,18 @@ static	int	ft_verif(char *str)
 	return (0);
 }
 
-int		parser(t_data *fdf)
+int				parser(t_data *fdf)
 {
 	char	*line;
 	int		i;
+
 	if (!(fdf->tab = (char **)malloc(sizeof(char *) * fdf->ord + 1)))
 		return (-1);
-//	fdf->tab[fdf->ord] = NULL;
 	i = 0;
 	fdf->ab = 0;
 	printf("fdf-.ord = %d\n", fdf->ord);
 	while (get_next_line(fdf->fd, &line) > 0)
 	{
-//		printf("%s\n", line);
 		if (i == 0)
 			fdf->ab = ft_countdigits(line);
 		else if (i > 0)
@@ -102,8 +101,5 @@ int		parser(t_data *fdf)
 		i++;
 	}
 	fdf->tab[fdf->ord] = NULL;
-	int	k = -1;
-	while (fdf->tab[++k])
-		printf("TAB = %s\n",fdf->tab[k]);
 	return (0);
 }

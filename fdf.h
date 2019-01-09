@@ -6,7 +6,7 @@
 /*   By: prastoin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/29 13:58:31 by prastoin          #+#    #+#             */
-/*   Updated: 2019/01/09 10:25:21 by prastoin         ###   ########.fr       */
+/*   Updated: 2019/01/09 12:08:02 by prastoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@
 # define KEY_DOWN 125
 # define KEY_LEFT 123
 # define KEY_RIGHT 124
-# define KEY_CTRL 256
+# define KEY_SPACE 53
 # define KEY_NUM6 88
 # define KEY_NUM3 85
-//# define W_L 1000
-//# define W_l 1000
+# define SCREEN_X 2000
+# define SCREEN_Y 2000
 
 typedef struct	s_data
 {
@@ -40,22 +40,22 @@ typedef struct	s_data
 	void	*img;
 	int		*img_ptr;
 
-	int		dim; //??
+	int		dim;
 	char	**tab;
 	int		fd;
-	int		ord; //ordonnes
-	int		ab; //abscisss
-	int		**z; //tab altitude
+	int		ord;
+	int		ab;
+	int		**z;
 
 	int		zoom;
 	int		position_y;
 	int		position_x;
 	int		hauteur;
 	int		isoparr;
-}			t_data;
+}				t_data;
 
-int		parser(t_data *fdf);
-int		data(t_data *fdf);
-int		algo(t_data *fdf, int x, int y);
+int				parser(t_data *fdf);
+int				data(t_data *fdf);
+int				algo(t_data *fdf, int x, int y);
 
 #endif

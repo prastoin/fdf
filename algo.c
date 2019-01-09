@@ -6,7 +6,7 @@
 /*   By: prastoin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 10:41:56 by prastoin          #+#    #+#             */
-/*   Updated: 2019/01/09 11:21:47 by prastoin         ###   ########.fr       */
+/*   Updated: 2019/01/09 12:14:18 by prastoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,27 +116,14 @@ int		algo(t_data *fdf, int x, int y)
 		printf("j = %d\n", j);
 		while (i < x)
 		{
-			//			printf("z[%d][%d] = %d\n", j, i, fdf->z[j][i]);
 			if (i + 1 < x)
-			{
-				//				fdf->z[j][i] = fdf->z[j][i] == 0 ? 0 : (fdf->z[j][i + 1] / 10);
-				//				fdf->z[j][i + 1] = fdf->z[j][i + 1] == 0 ? 0 : (fdf->z[j][i + 1] / 10);
 				ft_pass(fdf, i, j, (i + 1), j);
-			}
 			if (i - 1 >= 0)
-			{
-//				z = fdf->z[j][i - 1];
-//				z = z == 0 ? 0 : 1;
 				ft_pass(fdf, i, j, (i - 1), j);
-			}
 			if (j + 1 < y)
-			{
 				ft_pass(fdf, i, j, i, (j + 1));
-			}
 			if (j - 1 >= 0)
-			{
 				ft_pass(fdf, i, j, i, (j - 1));
-			}
 			i++;
 		}
 		j++;
