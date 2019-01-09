@@ -6,7 +6,7 @@
 /*   By: prastoin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/29 13:58:31 by prastoin          #+#    #+#             */
-/*   Updated: 2019/01/09 14:10:25 by prastoin         ###   ########.fr       */
+/*   Updated: 2019/01/09 14:48:09 by fbecerri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,16 @@ typedef struct	s_data
 	int		position_x;
 	int		hauteur;
 	int		isoparr;
+
+
+	int x;
+	int y;
+	int xstart;
+	int ystart;
+	int zstart;
+	double grad;
 }				t_data;
 
-void			ft_quit(t_data *fdf);
 int				get_z_max(t_data *fdf);
 int				parser(t_data *fdf);
 int				data(t_data *fdf);

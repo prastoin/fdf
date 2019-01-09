@@ -6,118 +6,122 @@
 /*   By: prastoin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 10:41:56 by prastoin          #+#    #+#             */
-/*   Updated: 2019/01/09 14:12:58 by prastoin         ###   ########.fr       */
+/*   Updated: 2019/01/09 14:52:27 by fbecerri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include "libft.h"
 
-int gradient(int a, int b, float percent)
+static int		gradient(int a, int b, float percent)
 {
 	return ((int)((a + (b - a)) * percent));
 }
 
-int tracertrait(t_data *fdf, int xstart, int ystart, int x, int y, int dz, int zstart)
+static int		tracertrait(t_data *fdf, int x, int y, int dz)
 {
-	const int	x_inc = xstart < x ? 1 : -1;
-	const int	y_inc = ystart < y ? 1 : -1;
-	const int	dx = x > xstart ? x - xstart: xstart - x;
-	const int	dy = y > ystart ? y - ystart: ystart - y;
+	const int	x_inc = fdf->xstart < x ? 1 : -1;
+	const int	y_inc = fdf->ystart < y ? 1 : -1;
+	const int	dx = x > fdf->xstart ? x - fdf->xstart : fdf->xstart - x;
+	const int	dy = y > fdf->ystart ? y - fdf->ystart : fdf->ystart - y;
 	int			e[2];
-	double		i;
 
 	e[0] = dx > dy ? dx / 2 : -dy / 2;
-	while (xstart != x || ystart != y)
+	while (fdf->xstart != x || fdf->ystart != y)
 	{
-		i = (dx > dy) ? (x - xstart) * x_inc / (double)dx : (y - ystart) * y_inc / (double)dy;
-		if (ystart >= 0 && ystart < SCREEN_Y && y < SCREEN_Y && y >= 0 && xstart >= 0 && xstart < SCREEN_X && x < SCREEN_X && x > 0)
-			fdf->img_ptr[ystart * SCREEN_X + xstart] = 0xFFFFFF - gradient(0xFF0000, 0x00FF00, (zstart + (i * dz)) / (double)(fdf->more));
-//			fdf->img_ptr[ystart * SCREEN_X + xstart] = gradient(0xFF0000, 0x00FF00, (dx > dy) ? (x - xstart) * x_inc / (double)dx : (y - ystart) * y_inc / (double)dy);
+		fdf->grad = (dx > dy) ? (x - fdf->xstart) * x_inc / (double)dx :
+			(y - fdf->ystart) * y_inc / (double)dy;
+		if (fdf->ystart >= 0 && fdf->ystart < SCREEN_Y &&
+				y < SCREEN_Y && y >= 0 && fdf->xstart >= 0 &&
+				fdf->xstart < SCREEN_X && x < SCREEN_X && x > 0)
+			fdf->img_ptr[fdf->ystart * SCREEN_X + fdf->xstart] = 0xFFFFFF -
+				gradient(0xFF0000, 0x00FF00, (fdf->zstart + (fdf->grad * dz)) /
+				(double)(fdf->more));
 		if ((e[1] = e[0]) > -dx)
 		{
 			e[0] -= dy;
-			xstart += x_inc;
+			fdf->xstart += x_inc;
 		}
 		if (e[1] < dy)
 		{
 			e[0] += dx;
-			ystart += y_inc;
+			fdf->ystart += y_inc;
 		}
 	}
 	return (0);
 }
 
-static int	ft_pass_iso(t_data *fdf, int xstart, int ystart, int x, int y)
+static int		ft_pass_iso(t_data *fdf, int x, int y)
 {
-	int	tmp1;
-	int tmp2;
-	int		zstart;
+	int		tmp1;
+	int		tmp2;
 	int		z;
 
-	zstart = fdf->z[ystart][xstart];
+	fdf->zstart = fdf->z[fdf->ystart][fdf->xstart];
 	z = fdf->z[y][x];
 	x *= fdf->zoom;
 	y *= fdf->zoom;
-	xstart *= fdf->zoom;
-	ystart *= fdf->zoom;
+	fdf->xstart = fdf->xstart * fdf->zoom;
+	fdf->ystart = fdf->ystart * fdf->zoom;
 	tmp1 = x;
-	tmp2 = xstart;
+	tmp2 = fdf->xstart;
 	x = (x - y) + fdf->position_x;
-	xstart = (xstart - ystart) + fdf->position_x;
+	fdf->xstart = (fdf->xstart - fdf->ystart) + fdf->position_x;
 	y = ((tmp1 + y) / 2) + fdf->position_y;
-	ystart = ((tmp2 + ystart) / 2) + fdf->position_y;
-	tracertrait(fdf, xstart - (zstart * fdf->hauteur), ystart - (zstart * fdf->hauteur), x - (z * fdf->hauteur), y - (z * fdf->hauteur), zstart - z, zstart);
+	fdf->ystart = ((tmp2 + fdf->ystart) / 2) + fdf->position_y;
+	fdf->xstart = fdf->xstart - (fdf->zstart * fdf->hauteur);
+	fdf->ystart = fdf->ystart - (fdf->zstart * fdf->hauteur);
+	tracertrait(fdf, x - (z * fdf->hauteur), y - (z * fdf->hauteur),
+	fdf->zstart - z);
 	return (1);
 }
 
-static	int	ft_pass(t_data *fdf, int xstart, int ystart, int x, int y)
+static int		ft_pass(t_data *fdf, int x, int y)
 {
+	int	z;
+
+	fdf->xstart = fdf->x;
+	fdf->ystart = fdf->y;
 	if (fdf->isoparr == 0)
-		ft_pass_iso(fdf, xstart, ystart, x, y);
+		ft_pass_iso(fdf, x, y);
 	else if (fdf->isoparr == 1)
 	{
-		int	z;
-		int	zstart;
-
-		zstart = fdf->z[ystart][xstart];
+		fdf->zstart = fdf->z[fdf->ystart][fdf->xstart];
 		z = fdf->z[y][x];
 		x *= fdf->zoom;
 		y *= fdf->zoom;
-		xstart *= fdf->zoom;
-		ystart *= fdf->zoom;
+		fdf->xstart = fdf->xstart * fdf->zoom - (fdf->zstart * fdf->hauteur);
+		fdf->ystart = fdf->ystart * fdf->zoom - (fdf->zstart * fdf->hauteur);
 		x += fdf->position_x;
 		y += fdf->position_y;
-		xstart += fdf->position_x;
-		ystart += fdf->position_y;
-		tracertrait(fdf, xstart - (zstart * fdf->hauteur), ystart - (zstart * fdf->hauteur), x - (z * fdf->hauteur), y - (z * fdf->hauteur), zstart - z, zstart);
+		fdf->xstart += fdf->position_x;
+		fdf->ystart += fdf->position_y;
+		tracertrait(fdf, x - (z * fdf->hauteur), y - (z * fdf->hauteur),
+				fdf->zstart - z);
 	}
 	return (0);
 }
 
-int		algo(t_data *fdf, int x, int y)
+int				algo(t_data *fdf, int x, int y)
 {
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
-	while (j < y)
+	fdf->x = 0;
+	fdf->y = 0;
+	while (fdf->y < y)
 	{
-		i = 0;
-		while (i < x)
+		fdf->x = 0;
+		while (fdf->x < x)
 		{
-			if (i + 1 < x)
-				ft_pass(fdf, i, j, (i + 1), j);
-			if (i - 1 >= 0)
-				ft_pass(fdf, i, j, (i - 1), j);
-			if (j + 1 < y)
-				ft_pass(fdf, i, j, i, (j + 1));
-			if (j - 1 >= 0)
-				ft_pass(fdf, i, j, i, (j - 1));
-			i++;
+			if (fdf->x + 1 < x)
+				ft_pass(fdf, (fdf->x + 1), fdf->y);
+			if (fdf->x - 1 >= 0)
+				ft_pass(fdf, (fdf->x - 1), fdf->y);
+			if (fdf->y + 1 < y)
+				ft_pass(fdf, fdf->x, (fdf->y + 1));
+			if (fdf->y - 1 >= 0)
+				ft_pass(fdf, fdf->x, (fdf->y - 1));
+			fdf->x++;
 		}
-		j++;
+		fdf->y++;
 	}
 	mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->img, 0, 0);
 	return (0);
