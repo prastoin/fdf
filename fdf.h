@@ -6,7 +6,7 @@
 /*   By: prastoin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/29 13:58:31 by prastoin          #+#    #+#             */
-/*   Updated: 2019/01/09 12:08:02 by prastoin         ###   ########.fr       */
+/*   Updated: 2019/01/09 13:30:27 by prastoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@
 
 # define KEY_LESS 78
 # define KEY_PLUS 69
-# define KEY_UP 126
-# define KEY_DOWN 125
+# define KEY_UP 125
+# define KEY_DOWN 126
 # define KEY_LEFT 123
 # define KEY_RIGHT 124
 # define KEY_SPACE 53
 # define KEY_NUM6 88
 # define KEY_NUM3 85
 # define SCREEN_X 2000
-# define SCREEN_Y 2000
+# define SCREEN_Y 1000
 
 typedef struct	s_data
 {
@@ -46,6 +46,8 @@ typedef struct	s_data
 	int		ord;
 	int		ab;
 	int		**z;
+	int		more;
+	int		less;
 
 	int		zoom;
 	int		position_y;
@@ -54,6 +56,7 @@ typedef struct	s_data
 	int		isoparr;
 }				t_data;
 
+int				get_z_max(t_data *fdf);
 int				parser(t_data *fdf);
 int				data(t_data *fdf);
 int				algo(t_data *fdf, int x, int y);
