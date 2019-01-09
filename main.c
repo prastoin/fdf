@@ -6,7 +6,7 @@
 /*   By: prastoin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/06 10:19:44 by prastoin          #+#    #+#             */
-/*   Updated: 2019/01/09 14:27:58 by prastoin         ###   ########.fr       */
+/*   Updated: 2019/01/09 14:44:45 by prastoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static int	ft_cut(t_data *fdf, int i)
 	algo(fdf, fdf->ab, fdf->ord);
 	mlx_key_hook(fdf->win, deal_key, fdf);
 	mlx_loop(fdf->mlx);
-	return(0);
+	return (0);
 }
 
 int			main(int argc, char **argv)
@@ -105,7 +105,7 @@ int			main(int argc, char **argv)
 		if ((fdf.fd = open(argv[1], O_RDONLY)) == -1)
 			return (0);
 		if ((ft_count_line(&fdf)) == -1)
-			return(0);
+			return (0);
 		close(fdf.fd);
 		if ((fdf.fd = open(argv[1], O_RDONLY)) == -1)
 			return (0);
@@ -113,7 +113,7 @@ int			main(int argc, char **argv)
 	else
 	{
 		ft_putstr("./fdf [map] [projection] (iso / parr)\n");
-		return(0);
+		return (0);
 	}
 	ft_cut(&fdf, 5);
 	ft_freedbint(fdf.z, fdf.ord);
