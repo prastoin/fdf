@@ -6,14 +6,14 @@
 /*   By: prastoin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/06 13:15:14 by prastoin          #+#    #+#             */
-/*   Updated: 2019/01/09 13:32:41 by prastoin         ###   ########.fr       */
+/*   Updated: 2019/01/09 16:16:02 by prastoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "fdf.h"
 
-int		get_z_max(t_data *fdf)
+int			get_z_max(t_data *fdf)
 {
 	int	i;
 	int	j;
@@ -41,13 +41,15 @@ static int	ft_numlen(int nb)
 	int	count;
 	int	num;
 
-	count = 1;
+	count = 0;
 	num = nb;
 	if (nb < 0)
 	{
 		count++;
 		nb = -nb;
 	}
+	if (nb == 0)
+		return (1);
 	while (nb > 0)
 	{
 		nb = nb / 10;
@@ -60,8 +62,8 @@ static int	ft_init(int *m, int *n, int *j, int *i)
 {
 	*m = 0;
 	*n = 0;
-	*i = -1;
-	*j = 0;
+	*i = 0;
+	*j = -1;
 	return (0);
 }
 

@@ -6,14 +6,14 @@
 /*   By: prastoin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 10:41:56 by prastoin          #+#    #+#             */
-/*   Updated: 2019/01/09 14:52:27 by fbecerri         ###   ########.fr       */
+/*   Updated: 2019/01/09 16:17:06 by prastoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include "libft.h"
 
-static int		gradient(int a, int b, float percent)
+int				gradient(int a, int b, float percent)
 {
 	return ((int)((a + (b - a)) * percent));
 }
@@ -31,12 +31,7 @@ static int		tracertrait(t_data *fdf, int x, int y, int dz)
 	{
 		fdf->grad = (dx > dy) ? (x - fdf->xstart) * x_inc / (double)dx :
 			(y - fdf->ystart) * y_inc / (double)dy;
-		if (fdf->ystart >= 0 && fdf->ystart < SCREEN_Y &&
-				y < SCREEN_Y && y >= 0 && fdf->xstart >= 0 &&
-				fdf->xstart < SCREEN_X && x < SCREEN_X && x > 0)
-			fdf->img_ptr[fdf->ystart * SCREEN_X + fdf->xstart] = 0xFFFFFF -
-				gradient(0xFF0000, 0x00FF00, (fdf->zstart + (fdf->grad * dz)) /
-				(double)(fdf->more));
+		ft_tracertrait_cut(fdf, x, y, dz);
 		if ((e[1] = e[0]) > -dx)
 		{
 			e[0] -= dy;

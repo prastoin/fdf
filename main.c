@@ -6,7 +6,7 @@
 /*   By: prastoin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/06 10:19:44 by prastoin          #+#    #+#             */
-/*   Updated: 2019/01/09 14:44:45 by prastoin         ###   ########.fr       */
+/*   Updated: 2019/01/09 16:03:56 by prastoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static void	ft_init(t_data *fdf)
 
 static int	ft_cut(t_data *fdf, int i)
 {
-	if (parser(fdf) == -1)
+	if (parser(fdf, 0) == -1)
 	{
 		ft_putstr("Invalid map\n");
 		return (-1);
@@ -115,7 +115,8 @@ int			main(int argc, char **argv)
 		ft_putstr("./fdf [map] [projection] (iso / parr)\n");
 		return (0);
 	}
-	ft_cut(&fdf, 5);
+	if (ft_cut(&fdf, 5) == -1)
+		return (0);
 	ft_freedbint(fdf.z, fdf.ord);
 	return (0);
 }

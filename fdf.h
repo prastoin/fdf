@@ -6,7 +6,7 @@
 /*   By: prastoin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/29 13:58:31 by prastoin          #+#    #+#             */
-/*   Updated: 2019/01/09 14:48:09 by fbecerri         ###   ########.fr       */
+/*   Updated: 2019/01/09 16:16:17 by prastoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
-# include <stdio.h>
 # include <mlx.h>
 
 # define KEY_LESS 78
@@ -29,10 +28,10 @@
 # define KEY_SPACE 53
 # define KEY_NUM6 88
 # define KEY_NUM3 85
-# define SCREEN_X 2000
+# define SCREEN_X 1000
 # define SCREEN_Y 1000
 
-typedef struct	s_data
+typedef struct		s_data
 {
 	void	*mlx;
 	void	*win;
@@ -55,18 +54,20 @@ typedef struct	s_data
 	int		hauteur;
 	int		isoparr;
 
+	int		x;
+	int		y;
+	int		xstart;
+	int		ystart;
+	int		zstart;
+	double	grad;
+}					t_data;
 
-	int x;
-	int y;
-	int xstart;
-	int ystart;
-	int zstart;
-	double grad;
-}				t_data;
-
-int				get_z_max(t_data *fdf);
-int				parser(t_data *fdf);
-int				data(t_data *fdf);
-int				algo(t_data *fdf, int x, int y);
+int					gradient(int a, int b, float percent);
+void				ft_tracertrait_cut(t_data *fdf, int x, int y, int dz);
+void				ft_quit(t_data *fdf);
+int					get_z_max(t_data *fdf);
+int					parser(t_data *fdf, int i);
+int					data(t_data *fdf);
+int					algo(t_data *fdf, int x, int y);
 
 #endif
