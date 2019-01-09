@@ -6,7 +6,7 @@
 /*   By: prastoin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/06 10:19:44 by prastoin          #+#    #+#             */
-/*   Updated: 2019/01/09 10:22:35 by prastoin         ###   ########.fr       */
+/*   Updated: 2019/01/09 11:20:19 by prastoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,8 @@ int main(int argc, char **argv)
 	fdf.img_ptr = (int *)mlx_get_data_addr(fdf.img, &argc, &argc, &argc);
 	printf("les donnees on etaient traitee\n");
 	algo(&fdf, fdf.ab, fdf.ord);
-	mlx_key_hook(fdf.win, deal_key, &fdf);
 	mlx_put_image_to_window(fdf.mlx, fdf.win, fdf.img, 0, 0);
+	mlx_key_hook(fdf.win, deal_key, &fdf);
 	mlx_loop(fdf.mlx);
 	return(0);
 }
