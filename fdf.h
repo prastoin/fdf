@@ -6,7 +6,7 @@
 /*   By: prastoin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/29 13:58:31 by prastoin          #+#    #+#             */
-/*   Updated: 2019/01/09 13:30:27 by prastoin         ###   ########.fr       */
+/*   Updated: 2019/01/09 14:10:25 by prastoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct	s_data
 	int		isoparr;
 }				t_data;
 
+void			ft_quit(t_data *fdf);
 int				get_z_max(t_data *fdf);
 int				parser(t_data *fdf);
 int				data(t_data *fdf);

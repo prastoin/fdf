@@ -6,7 +6,7 @@
 /*   By: prastoin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/06 10:19:44 by prastoin          #+#    #+#             */
-/*   Updated: 2019/01/09 13:34:14 by prastoin         ###   ########.fr       */
+/*   Updated: 2019/01/09 14:27:58 by prastoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	deal_key(int key, t_data *fdf)
 	if (key == KEY_LEFT)
 		fdf->position_x -= 15;
 	if (key == KEY_SPACE)
-		exit (0);
+		ft_quit(fdf);
 	if (key == KEY_NUM6)
 		fdf->hauteur++;
 	if (key == KEY_NUM3)
@@ -44,13 +44,18 @@ static int	ft_count_line(t_data *fdf)
 {
 	int		tet;
 	char	*line;
+	char	*tmp;
 
+	tmp = NULL;
 	fdf->ord = 0;
 	tet = 1;
 	while (tet > 0)
 	{
+		tmp = line;
 		if ((tet = get_next_line(fdf->fd, &line)) < 0)
 			return (-1);
+		if (tmp != NULL)
+			free(tmp);
 		fdf->ord++;
 	}
 	fdf->ord--;
@@ -76,6 +81,7 @@ static int	ft_cut(t_data *fdf, int i)
 	}
 	close(fdf->fd);
 	data(fdf);
+	ft_freedbchar(fdf->tab);
 	get_z_max(fdf);
 	fdf->mlx = mlx_init();
 	fdf->win = mlx_new_window(fdf->mlx, SCREEN_X, SCREEN_Y, "prastoin's fdf");
@@ -110,5 +116,6 @@ int			main(int argc, char **argv)
 		return(0);
 	}
 	ft_cut(&fdf, 5);
+	ft_freedbint(fdf.z, fdf.ord);
 	return (0);
 }

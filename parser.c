@@ -6,7 +6,7 @@
 /*   By: prastoin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/06 10:24:30 by prastoin          #+#    #+#             */
-/*   Updated: 2019/01/09 12:49:12 by prastoin         ###   ########.fr       */
+/*   Updated: 2019/01/09 14:24:04 by prastoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int				parser(t_data *fdf)
 	char	*line;
 	int		i;
 
-	if (!(fdf->tab = (char **)malloc(sizeof(char *) * fdf->ord + 1)))
+	if (!(fdf->tab = (char **)malloc(sizeof(char *) * (fdf->ord + 1))))
 		return (-1);
 	i = 0;
 	fdf->ab = 0;

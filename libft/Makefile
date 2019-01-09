@@ -6,7 +6,7 @@
 #    By: amerrouc <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/08 15:59:18 by amerrouc          #+#    #+#              #
-#    Updated: 2018/12/28 09:22:53 by prastoin         ###   ########.fr        #
+#    Updated: 2019/01/09 14:06:13 by prastoin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,7 +81,8 @@ SRC = ft_strlen.c	\
 	  ft_strcapitalize.c	\
 	  ft_power.c	\
 	  ft_factorial.c	\
-	  ft_is_prime.c
+	  ft_is_prime.c		\
+	  ft_freedb.c
 
 OBJ = $(SRC:.c=.o)
 

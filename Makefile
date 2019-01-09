@@ -6,13 +6,13 @@
 #    By: prastoin <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/07 11:13:09 by prastoin          #+#    #+#              #
-#    Updated: 2019/01/07 12:40:13 by prastoin         ###   ########.fr        #
+#    Updated: 2019/01/09 14:25:18 by prastoin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fdf
 
-SRC = main.c parser.c data.c algo.c
+SRC = main.c parser.c data.c algo.c tools.c
 
 OBJ = $(SRC:.c=.o)
 
