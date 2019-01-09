@@ -6,7 +6,7 @@
 /*   By: prastoin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/06 10:19:44 by prastoin          #+#    #+#             */
-/*   Updated: 2019/01/08 17:09:07 by prastoin         ###   ########.fr       */
+/*   Updated: 2019/01/09 10:22:35 by prastoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,23 @@ int		deal_key(int key, t_data *fdf)
 	return (0);
 }
 
+int		ft_count_line(t_data *fdf)
+{
+	int		tet;
+	char	*line;
+
+	fdf->ord = 0;
+	tet = 1;
+	while (tet > 0)
+	{
+		if ((tet = get_next_line(fdf->fd, &line)) == -1)
+			return (-1);
+		fdf->ord++;
+	}
+	fdf->ord--;
+	return (0);
+}
+
 int main(int argc, char **argv)
 {
 	t_data	fdf;
@@ -52,19 +69,49 @@ int main(int argc, char **argv)
 	fdf.position_x = 500;
 	fdf.position_y = 300;
 	fdf.hauteur = 1;
-	if (argc == 2)
-		fdf.fd = open(argv[1], O_RDONLY);
+	if (argc == 3 && (ft_strcmp(argv[2], "iso") == 0 || ft_strcmp(argv[2], "parr") == 0))
+	{
+		fdf.isoparr = (ft_strcmp(argv[2], "iso") == 0) ? 0 : 1;
+		if ((fdf.fd = open(argv[1], O_RDONLY)) == -1)
+			return (0);
+		if ((ft_count_line(&fdf)) == -1)
+			return(0);
+		close(fdf.fd);
+		if ((fdf.fd = open(argv[1], O_RDONLY)) == -1)
+			return (0);
+	}
 	else
+	{
+		ft_putstr("./fdf [map] [projection] (iso / parr)\n");
 		return(0);
-	if (fdf.fd == -1)
-		return (0);
+	}
 	if (parser(&fdf) == -1)
 	{
 		ft_putstr("la map est invalide\n");
 		return (0);
 	}
+	close(fdf.fd);
+	printf("ICI ICI ICI =%d\n", fdf.ord);
 	printf("la map est valide\n");
 	data(&fdf);
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	while (i < fdf.ord)
+	{
+		j = 0;
+		while (j < fdf.ab)
+		{
+			printf("%d ", fdf.z[i][j]);
+			j++;
+			if (j == fdf.ab)
+				printf("\n");
+		}
+		i++;
+	}
+	printf("la map est valide\n");
 	fdf.mlx = mlx_init();
 	fdf.win = mlx_new_window(fdf.mlx, 1000, 1000, "prastoin's fdf");
 	fdf.img = mlx_new_image(fdf.mlx, 1000, 1000);

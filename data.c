@@ -6,7 +6,7 @@
 /*   By: prastoin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/06 13:15:14 by prastoin          #+#    #+#             */
-/*   Updated: 2019/01/07 16:16:45 by prastoin         ###   ########.fr       */
+/*   Updated: 2019/01/09 10:19:48 by prastoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ int		data(t_data *fdf)
 	int	i;
 
 	i = 0;
+	printf("ord = %d et ab =%d\n", fdf->ord, fdf->ab);
 	if (!(fdf->z = (int **)malloc(sizeof(int*) * (fdf->ord))))
 		return (-1);
 	while (i < fdf->ord)

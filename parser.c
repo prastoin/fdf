@@ -6,7 +6,7 @@
 /*   By: prastoin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/06 10:24:30 by prastoin          #+#    #+#             */
-/*   Updated: 2019/01/07 09:32:35 by prastoin         ###   ########.fr       */
+/*   Updated: 2019/01/09 10:19:25 by prastoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,26 +77,33 @@ static	int	ft_verif(char *str)
 
 int		parser(t_data *fdf)
 {
-	char			*line;
-
+	char	*line;
+	int		i;
+	if (!(fdf->tab = (char **)malloc(sizeof(char *) * fdf->ord + 1)))
+		return (-1);
+//	fdf->tab[fdf->ord] = NULL;
+	i = 0;
 	fdf->ab = 0;
-	fdf->ord = 0;
+	printf("fdf-.ord = %d\n", fdf->ord);
 	while (get_next_line(fdf->fd, &line) > 0)
 	{
-		printf("%s\n", line);
-		if (fdf->ord == 0)
+//		printf("%s\n", line);
+		if (i == 0)
 			fdf->ab = ft_countdigits(line);
-		else if (fdf->ord > 0)
+		else if (i > 0)
 		{
 			if ((ft_verif(line) != 0) || (ft_countdigits(line) != fdf->ab))
 			{
-				ft_fail_reading(fdf->tab, fdf->ord);
+				ft_fail_reading(fdf->tab, i);
 				return (-1);
 			}
 		}
-		fill_tab(fdf->tab, line, fdf->ord);
-		fdf->ord++;
+		fill_tab(fdf->tab, line, i);
+		i++;
 	}
 	fdf->tab[fdf->ord] = NULL;
+	int	k = -1;
+	while (fdf->tab[++k])
+		printf("TAB = %s\n",fdf->tab[k]);
 	return (0);
 }

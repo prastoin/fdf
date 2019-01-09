@@ -6,7 +6,7 @@
 /*   By: prastoin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 10:41:56 by prastoin          #+#    #+#             */
-/*   Updated: 2019/01/08 17:48:48 by prastoin         ###   ########.fr       */
+/*   Updated: 2019/01/09 10:36:49 by prastoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int tracertrait(t_data *fdf, int xstart, int ystart, int x, int y, int zstart, i
 	return (0);
 }
 
-static int	ft_pass(t_data *fdf, int xstart, int ystart, int x, int y)
+static int	ft_pass_iso(t_data *fdf, int xstart, int ystart, int x, int y)
 {
 	int	tmp1;
 	int tmp2;
@@ -75,6 +75,26 @@ static int	ft_pass(t_data *fdf, int xstart, int ystart, int x, int y)
 	ystart = ((tmp2 + ystart) / 2) + fdf->position_y;
 	tracertrait(fdf, xstart - (zstart * fdf->hauteur), ystart - (zstart * fdf->hauteur), x - (z * fdf->hauteur), y - (z * fdf->hauteur), zstart, z);
 	return (1);
+}
+
+static	int	ft_pass(t_data *fdf, int xstart, int ystart, int x, int y)
+{
+	if (fdf->isoparr == 0)
+		ft_pass_iso(fdf, xstart, ystart, x, y);
+	else if (fdf->isoparr == 1)
+	{
+		int	z;
+		int	zstart;
+
+		zstart = fdf->z[ystart][xstart];
+		z = fdf->z[ystart][xstart];
+		x *= fdf->zoom;
+		y *= fdf->zoom;
+		xstart *= fdf->zoom;
+		ystart *= fdf->zoom;
+		tracertrait(fdf, xstart - (zstart * fdf->hauteur), ystart - (zstart * fdf->hauteur), x - (z * fdf->hauteur), y - (z * fdf->hauteur), zstart, z);
+	}
+	return (0);
 }
 
 int		algo(t_data *fdf, int x, int y)

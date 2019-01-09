@@ -6,7 +6,7 @@
 /*   By: prastoin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/29 13:58:31 by prastoin          #+#    #+#             */
-/*   Updated: 2019/01/08 17:14:07 by prastoin         ###   ########.fr       */
+/*   Updated: 2019/01/09 10:25:21 by prastoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct	s_data
 	int		*img_ptr;
 
 	int		dim; //??
-	char	*tab[4096];
+	char	**tab;
 	int		fd;
 	int		ord; //ordonnes
 	int		ab; //abscisss
@@ -51,6 +51,7 @@ typedef struct	s_data
 	int		position_y;
 	int		position_x;
 	int		hauteur;
+	int		isoparr;
 }			t_data;
 
 int		parser(t_data *fdf);
