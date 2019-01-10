@@ -6,7 +6,7 @@
 /*   By: prastoin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/29 13:58:31 by prastoin          #+#    #+#             */
-/*   Updated: 2019/01/09 16:16:17 by prastoin         ###   ########.fr       */
+/*   Updated: 2019/01/10 09:52:55 by prastoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <mlx.h>
 
 # define KEY_LESS 78
+# define KEY_CTRL 256
 # define KEY_PLUS 69
 # define KEY_UP 125
 # define KEY_DOWN 126
@@ -62,6 +63,7 @@ typedef struct		s_data
 	double	grad;
 }					t_data;
 
+int					ft_error(int i, t_data *fdf);
 int					gradient(int a, int b, float percent);
 void				ft_tracertrait_cut(t_data *fdf, int x, int y, int dz);
 void				ft_quit(t_data *fdf);

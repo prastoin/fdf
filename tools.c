@@ -6,12 +6,28 @@
 /*   By: prastoin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 14:08:15 by prastoin          #+#    #+#             */
-/*   Updated: 2019/01/09 15:50:31 by prastoin         ###   ########.fr       */
+/*   Updated: 2019/01/10 09:49:45 by prastoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "fdf.h"
+
+int		ft_error(int i, t_data *fdf)
+{
+	if (i == 0)
+	{
+		ft_putstr("Unreadable file\n");
+		return (0);
+	}
+	if (i == 1)
+	{
+		ft_freedbint(fdf->z, fdf->ord);
+		ft_putstr("Minilib error reload\n");
+		return (0);
+	}
+	return (0);
+}
 
 void	ft_quit(t_data *fdf)
 {

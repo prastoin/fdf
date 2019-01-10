@@ -6,7 +6,7 @@
 /*   By: prastoin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/06 10:19:44 by prastoin          #+#    #+#             */
-/*   Updated: 2019/01/09 16:03:56 by prastoin         ###   ########.fr       */
+/*   Updated: 2019/01/10 09:53:33 by prastoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 static int	deal_key(int key, t_data *fdf)
 {
+	if (key == KEY_CTRL)
+		fdf->isoparr = (fdf->isoparr == 1 ? 0 : 1);
 	if (key == KEY_LESS)
 		fdf->zoom -= 5;
 	if (key == KEY_PLUS)
@@ -80,13 +82,18 @@ static int	ft_cut(t_data *fdf, int i)
 		return (-1);
 	}
 	close(fdf->fd);
-	data(fdf);
+	if (data(fdf) == -1)
+		return (-1);
 	ft_freedbchar(fdf->tab);
 	get_z_max(fdf);
-	fdf->mlx = mlx_init();
-	fdf->win = mlx_new_window(fdf->mlx, SCREEN_X, SCREEN_Y, "prastoin's fdf");
-	fdf->img = mlx_new_image(fdf->mlx, SCREEN_X, SCREEN_Y);
-	fdf->img_ptr = (int *)mlx_get_data_addr(fdf->img, &i, &i, &i);
+	if (!(fdf->mlx = mlx_init()))
+		return (ft_error(1, fdf));
+	if (!(fdf->win = mlx_new_window(fdf->mlx, SCREEN_X, SCREEN_Y, "prastoin's fdf")))
+		return (ft_error(1, fdf));
+	if (!(fdf->img = mlx_new_image(fdf->mlx, SCREEN_X, SCREEN_Y)))
+		return(ft_error(1, fdf));
+	if (!(fdf->img_ptr = (int *)mlx_get_data_addr(fdf->img, &i, &i, &i)))
+		return(ft_error(1, fdf));
 	algo(fdf, fdf->ab, fdf->ord);
 	mlx_key_hook(fdf->win, deal_key, fdf);
 	mlx_loop(fdf->mlx);
@@ -103,12 +110,12 @@ int			main(int argc, char **argv)
 	{
 		fdf.isoparr = (ft_strcmp(argv[2], "iso") == 0) ? 0 : 1;
 		if ((fdf.fd = open(argv[1], O_RDONLY)) == -1)
-			return (0);
+			return (ft_error(0, &fdf));
 		if ((ft_count_line(&fdf)) == -1)
 			return (0);
 		close(fdf.fd);
 		if ((fdf.fd = open(argv[1], O_RDONLY)) == -1)
-			return (0);
+			return (ft_error(0, &fdf));
 	}
 	else
 	{
