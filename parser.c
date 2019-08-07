@@ -6,7 +6,7 @@
 /*   By: prastoin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/06 10:24:30 by prastoin          #+#    #+#             */
-/*   Updated: 2019/01/09 15:52:38 by prastoin         ###   ########.fr       */
+/*   Updated: 2019/01/10 10:38:27 by prastoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int		ft_fail_reading(char **tab, int i)
 	return (0);
 }
 
-static int		ft_verif(char *str)
+int				ft_verif(char *str)
 {
 	int	i;
 

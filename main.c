@@ -6,7 +6,7 @@
 /*   By: prastoin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/06 10:19:44 by prastoin          #+#    #+#             */
-/*   Updated: 2019/01/10 09:53:33 by prastoin         ###   ########.fr       */
+/*   Updated: 2019/01/10 10:50:28 by prastoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,13 @@ static int	ft_count_line(t_data *fdf)
 		tmp = line;
 		if ((tet = get_next_line(fdf->fd, &line)) < 0)
 			return (-1);
+		if (ft_verif(line) == -1)
+		{
+			if (tmp != NULL)
+				free(tmp);
+			ft_putstr("Map error\n");
+			exit(0);
+		}
 		if (tmp != NULL)
 			free(tmp);
 		fdf->ord++;
@@ -83,17 +90,18 @@ static int	ft_cut(t_data *fdf, int i)
 	}
 	close(fdf->fd);
 	if (data(fdf) == -1)
-		return (-1);
+		return (ft_error(2, fdf));
 	ft_freedbchar(fdf->tab);
 	get_z_max(fdf);
 	if (!(fdf->mlx = mlx_init()))
 		return (ft_error(1, fdf));
-	if (!(fdf->win = mlx_new_window(fdf->mlx, SCREEN_X, SCREEN_Y, "prastoin's fdf")))
+	if (!(fdf->win = mlx_new_window(fdf->mlx, SCREEN_X,
+					SCREEN_Y, "prastoin's fdf")))
 		return (ft_error(1, fdf));
 	if (!(fdf->img = mlx_new_image(fdf->mlx, SCREEN_X, SCREEN_Y)))
-		return(ft_error(1, fdf));
+		return (ft_error(1, fdf));
 	if (!(fdf->img_ptr = (int *)mlx_get_data_addr(fdf->img, &i, &i, &i)))
-		return(ft_error(1, fdf));
+		return (ft_error(1, fdf));
 	algo(fdf, fdf->ab, fdf->ord);
 	mlx_key_hook(fdf->win, deal_key, fdf);
 	mlx_loop(fdf->mlx);
@@ -112,7 +120,7 @@ int			main(int argc, char **argv)
 		if ((fdf.fd = open(argv[1], O_RDONLY)) == -1)
 			return (ft_error(0, &fdf));
 		if ((ft_count_line(&fdf)) == -1)
-			return (0);
+			return (ft_error(0, &fdf));
 		close(fdf.fd);
 		if ((fdf.fd = open(argv[1], O_RDONLY)) == -1)
 			return (ft_error(0, &fdf));

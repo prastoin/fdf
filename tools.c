@@ -6,7 +6,7 @@
 /*   By: prastoin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 14:08:15 by prastoin          #+#    #+#             */
-/*   Updated: 2019/01/10 09:49:45 by prastoin         ###   ########.fr       */
+/*   Updated: 2019/01/10 10:51:30 by prastoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,13 @@ int		ft_error(int i, t_data *fdf)
 	if (i == 1)
 	{
 		ft_freedbint(fdf->z, fdf->ord);
-		ft_putstr("Minilib error reload\n");
+		ft_putstr("Minilib error, reload\n");
+		return (0);
+	}
+	if (i == 2)
+	{
+		ft_freedbchar(fdf->tab);
+		ft_putstr("Memory allocation failed, reload\n");
 		return (0);
 	}
 	return (0);
